@@ -33,8 +33,8 @@ class ProfileRepository {
       final updatedProfile = _extractProfileFromResponse(response.data);
       MockMemberData.profile = updatedProfile;
       return updatedProfile;
-    } catch (_) {
-      return MockMemberData.profile;
+    } catch (error) {
+      throw Exception('Failed to update profile: $error');
     }
   }
 
@@ -53,8 +53,8 @@ class ProfileRepository {
       final updatedProfile = _extractProfileFromResponse(response.data);
       MockMemberData.profile = updatedProfile;
       return updatedProfile;
-    } catch (_) {
-      return MockMemberData.profile;
+    } catch (error) {
+      throw Exception('Failed to upload profile photo: $error');
     }
   }
 
