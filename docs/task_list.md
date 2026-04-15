@@ -48,9 +48,9 @@ This document tracks the detailed implementation progress. Each module is broken
 - [x] **API**: Sync with `GET` and `PUT` `/api/member/profile` `[!]`
 
 ### 2.4 Digital Member Card (Module 05)
-- [/] **UI**: Professional NDM Member Card design (CSS-like styling in Flutter) `[!]`
-- [ ] **Logic**: Dynamic QR Code generation based on Member ID `[!]`
-- [ ] **Feature**: Toggle between Card view and QR view `[!]`
+- [x] **UI**: Professional NDM Member Card design (CSS-like styling in Flutter) `[!]`
+- [x] **Logic**: Dynamic QR Code generation based on Member ID `[!]`
+- [x] **Feature**: Toggle between Card view and QR view `[!]`
 
 ---
 
