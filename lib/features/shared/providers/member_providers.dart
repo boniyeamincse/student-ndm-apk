@@ -12,8 +12,8 @@ import '../domain/member_models.dart';
 
 final dashboardProvider =
     AsyncNotifierProvider<DashboardNotifier, MemberDashboardData>(
-  DashboardNotifier.new,
-);
+      DashboardNotifier.new,
+    );
 
 class DashboardNotifier extends AsyncNotifier<MemberDashboardData> {
   @override
@@ -42,8 +42,8 @@ class ProfileNotifier extends AsyncNotifier<MemberProfile> {
 
 final assignmentsProvider =
     AsyncNotifierProvider<AssignmentsNotifier, List<CommitteeAssignment>>(
-  AssignmentsNotifier.new,
-);
+      AssignmentsNotifier.new,
+    );
 
 class AssignmentsNotifier extends AsyncNotifier<List<CommitteeAssignment>> {
   @override
@@ -65,8 +65,8 @@ class LeaderNotifier extends AsyncNotifier<LeaderInfo?> {
 
 final subordinatesProvider =
     AsyncNotifierProvider<SubordinatesNotifier, List<SubordinateInfo>>(
-  SubordinatesNotifier.new,
-);
+      SubordinatesNotifier.new,
+    );
 
 class SubordinatesNotifier extends AsyncNotifier<List<SubordinateInfo>> {
   @override
@@ -75,9 +75,10 @@ class SubordinatesNotifier extends AsyncNotifier<List<SubordinateInfo>> {
   }
 }
 
-final noticesProvider = AsyncNotifierProvider<NoticesNotifier, List<NoticeItem>>(
-  NoticesNotifier.new,
-);
+final noticesProvider =
+    AsyncNotifierProvider<NoticesNotifier, List<NoticeItem>>(
+      NoticesNotifier.new,
+    );
 
 class NoticesNotifier extends AsyncNotifier<List<NoticeItem>> {
   @override
@@ -99,8 +100,8 @@ class PostsNotifier extends AsyncNotifier<List<PostItem>> {
 
 final requestsProvider =
     AsyncNotifierProvider<RequestsNotifier, List<ProfileRequestItem>>(
-  RequestsNotifier.new,
-);
+      RequestsNotifier.new,
+    );
 
 class RequestsNotifier extends AsyncNotifier<List<ProfileRequestItem>> {
   @override
@@ -113,11 +114,9 @@ class RequestsNotifier extends AsyncNotifier<List<ProfileRequestItem>> {
     required String changes,
     required String note,
   }) async {
-    await ref.read(profileRequestsRepositoryProvider).createRequest(
-          type: type,
-          changes: changes,
-          note: note,
-        );
+    await ref
+        .read(profileRequestsRepositoryProvider)
+        .createRequest(type: type, changes: changes, note: note);
     state = await AsyncValue.guard(() async {
       return ref.read(profileRequestsRepositoryProvider).getRequests();
     });
@@ -126,8 +125,8 @@ class RequestsNotifier extends AsyncNotifier<List<ProfileRequestItem>> {
 
 final settingsProvider =
     AsyncNotifierProvider<SettingsNotifier, AccountSettings>(
-  SettingsNotifier.new,
-);
+      SettingsNotifier.new,
+    );
 
 class SettingsNotifier extends AsyncNotifier<AccountSettings> {
   @override
@@ -135,7 +134,7 @@ class SettingsNotifier extends AsyncNotifier<AccountSettings> {
     return ref.read(settingsRepositoryProvider).getSettings();
   }
 
-  Future<void> update(AccountSettings next) async {
+  Future<void> updateSettings(AccountSettings next) async {
     await ref.read(settingsRepositoryProvider).updateSettings(next);
     state = AsyncData(next);
   }

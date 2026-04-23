@@ -7,7 +7,7 @@ import '../core/constants/app_spacing.dart';
 
 class AppTheme {
   static ThemeData get lightTheme {
-    final textTheme = GoogleFonts.plusJakartaSansTextTheme();
+    final textTheme = GoogleFonts.soraTextTheme();
 
     return ThemeData(
       useMaterial3: true,
@@ -16,44 +16,46 @@ class AppTheme {
         primary: AppColors.primary,
         secondary: AppColors.secondary,
         error: AppColors.error,
+        surface: AppColors.surface,
+        background: AppColors.background,
       ),
-      scaffoldBackgroundColor: AppColors.backgroundLight,
+      scaffoldBackgroundColor: AppColors.background,
       textTheme: textTheme,
       cardTheme: CardThemeData(
         elevation: 0,
-        color: AppColors.surfaceWhite,
+        color: AppColors.surface,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(AppRadius.l),
-          side: const BorderSide(color: AppColors.border),
+          borderRadius: BorderRadius.circular(AppRadius.xl),
+          side: BorderSide(color: AppColors.border.withOpacity(0.5)),
         ),
       ),
       appBarTheme: AppBarTheme(
         elevation: 0,
         centerTitle: false,
-        backgroundColor: AppColors.surfaceWhite,
-        foregroundColor: AppColors.textHighEmphasis,
+        backgroundColor: AppColors.surface,
+        foregroundColor: AppColors.textHigh,
         titleTextStyle: textTheme.titleLarge?.copyWith(
-          color: AppColors.textHighEmphasis,
-          fontWeight: FontWeight.w700,
+          color: AppColors.textHigh,
+          fontWeight: FontWeight.w800,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: AppColors.surfaceWhite,
+        fillColor: AppColors.surface,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: AppSpacing.m,
           vertical: AppSpacing.m,
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.m),
+          borderRadius: BorderRadius.circular(AppRadius.l),
           borderSide: const BorderSide(color: AppColors.border),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.m),
+          borderRadius: BorderRadius.circular(AppRadius.l),
           borderSide: const BorderSide(color: AppColors.border),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(AppRadius.m),
+          borderRadius: BorderRadius.circular(AppRadius.l),
           borderSide: const BorderSide(color: AppColors.primary, width: 1.6),
         ),
       ),
@@ -61,11 +63,12 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           elevation: 0,
           backgroundColor: AppColors.primary,
-          foregroundColor: AppColors.surfaceWhite,
+          foregroundColor: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.m),
+            borderRadius: BorderRadius.circular(AppRadius.l),
           ),
-          minimumSize: const Size.fromHeight(48),
+          minimumSize: const Size.fromHeight(56),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
@@ -73,17 +76,19 @@ class AppTheme {
           side: const BorderSide(color: AppColors.primary),
           foregroundColor: AppColors.primary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(AppRadius.m),
+            borderRadius: BorderRadius.circular(AppRadius.l),
           ),
-          minimumSize: const Size.fromHeight(48),
+          minimumSize: const Size.fromHeight(56),
+          textStyle: const TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
         ),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         selectedItemColor: AppColors.primary,
-        unselectedItemColor: AppColors.textLowEmphasis,
-        backgroundColor: AppColors.surfaceWhite,
+        unselectedItemColor: AppColors.textLow,
+        backgroundColor: AppColors.surface,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
+        elevation: 10,
       ),
     );
   }

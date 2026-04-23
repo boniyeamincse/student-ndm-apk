@@ -153,6 +153,41 @@ class PostItem {
   }
 }
 
+class EventItem {
+  final int id;
+  final String title;
+  final String description;
+  final String dateTime;
+  final String location;
+  final String type; // Rally, Meeting, Briefing
+  final String status; // upcoming, registered, completed
+  final String? imageUrl;
+
+  const EventItem({
+    required this.id,
+    required this.title,
+    required this.description,
+    required this.dateTime,
+    required this.location,
+    required this.type,
+    required this.status,
+    this.imageUrl,
+  });
+
+  factory EventItem.fromJson(Map<String, dynamic> json) {
+    return EventItem(
+      id: json['id'] ?? 0,
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      dateTime: json['date_time'] ?? '',
+      location: json['location'] ?? '',
+      type: json['type'] ?? 'Meeting',
+      status: json['status'] ?? 'upcoming',
+      imageUrl: json['image_url'],
+    );
+  }
+}
+
 class ProfileRequestItem {
   final int id;
   final String requestNo;
@@ -185,52 +220,110 @@ class ProfileRequestItem {
 class MemberProfile {
   final int id;
   final String fullName;
+  final String? banglaName;
   final String email;
   final String phone;
   final String memberNo;
   final String status;
   final String primaryCommittee;
   final String primaryPosition;
+  final String committeeLevel;
+  final String joiningDate;
+  final String membershipTier;
+  
+  // Personal
+  final String? fatherName;
+  final String? motherName;
+  final String? dob;
+  final String? gender;
+  final String? bloodGroup;
+  
+  // Academic
+  final String? institution;
+  final String? department;
+  final String? academicSession;
+  final String? studentId;
+  
+  // Address
   final String addressLine;
   final String villageArea;
   final String postOffice;
+  final String thana;
+  final String district;
+  final String division;
+  
   final String emergencyContact;
   final String bio;
   final String? avatar;
+  final int profileCompletion;
 
   const MemberProfile({
     required this.id,
     required this.fullName,
+    this.banglaName,
     required this.email,
     required this.phone,
     required this.memberNo,
     required this.status,
     required this.primaryCommittee,
     required this.primaryPosition,
+    required this.committeeLevel,
+    required this.joiningDate,
+    this.membershipTier = 'Basic',
+    this.fatherName,
+    this.motherName,
+    this.dob,
+    this.gender,
+    this.bloodGroup,
+    this.institution,
+    this.department,
+    this.academicSession,
+    this.studentId,
     required this.addressLine,
     required this.villageArea,
     required this.postOffice,
+    required this.thana,
+    required this.district,
+    required this.division,
     required this.emergencyContact,
     required this.bio,
     this.avatar,
+    this.profileCompletion = 85,
   });
 
   factory MemberProfile.fromJson(Map<String, dynamic> json) {
     return MemberProfile(
       id: json['id'] ?? 0,
       fullName: json['name'] ?? '',
+      banglaName: json['bangla_name'],
       email: json['email'] ?? '',
       phone: json['phone'] ?? '-',
       memberNo: json['member_no'] ?? '-',
       status: json['status'] ?? 'inactive',
       primaryCommittee: json['primary_committee'] ?? '-',
       primaryPosition: json['primary_position'] ?? '-',
+      committeeLevel: json['committee_level'] ?? 'Central',
+      joiningDate: json['joining_date'] ?? '-',
+      fatherName: json['father_name'],
+      motherName: json['mother_name'],
+      dob: json['dob'],
+      gender: json['gender'],
+      bloodGroup: json['blood_group'],
+      institution: json['institution'],
+      department: json['department'],
+      academicSession: json['academic_session'],
+      studentId: json['student_id'],
       addressLine: json['address_line'] ?? '-',
       villageArea: json['village_area'] ?? '-',
       postOffice: json['post_office'] ?? '-',
+      thana: json['thana'] ?? '-',
+      district: json['district'] ?? '-',
+      division: json['division'] ?? '-',
       emergencyContact: json['emergency_contact'] ?? '-',
       bio: json['bio'] ?? '-',
       avatar: json['avatar'],
+      profileCompletion: json['profile_completion'] ?? 85,
+      membershipTier: json['membership_tier'] ?? 'Sovereign',
     );
   }
 }

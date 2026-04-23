@@ -7,10 +7,7 @@ import '../../../core/errors/exceptions.dart';
 import '../domain/user_model.dart';
 
 final authRepositoryProvider = Provider<AuthRepository>((ref) {
-  return AuthRepository(
-    ref.read(dioProvider),
-    ref.read(secureStorageProvider),
-  );
+  return AuthRepository(ref.read(dioProvider), ref.read(secureStorageProvider));
 });
 
 class AuthRepository {
@@ -19,12 +16,18 @@ class AuthRepository {
 
   AuthRepository(this._dio, this._storage);
 
-  Future<UserModel> login({required String login, required String password}) async {
+  Future<UserModel> login({
+    required String login,
+    required String password,
+  }) async {
     try {
-      final response = await _dio.post(ApiConstants.login, data: {
-        'login': login, // could be email or phone based on backend support
-        'password': password,
-      });
+      final response = await _dio.post(
+        ApiConstants.login,
+        data: {
+          'login': login, // could be email or phone based on backend support
+          'password': password,
+        },
+      );
 
       if (response.statusCode == 200) {
         final data = response.data;
@@ -34,15 +37,20 @@ class AuthRepository {
         if (token != null && token is String) {
           await _storage.saveToken(token);
         }
-        
+
         final userData = data['user'] ?? data['data']?['user'] ?? data['data'];
         return UserModel.fromJson(userData);
       } else {
         throw ServerException(message: 'Login failed: Invalid response format');
       }
     } on DioException catch (e) {
-      final message = e.response?.data?['message'] ?? 'Unable to login. Please check your credentials.';
-      throw ServerException(message: message, statusCode: e.response?.statusCode);
+      final message =
+          e.response?.data?['message'] ??
+          'Unable to login. Please check your credentials.';
+      throw ServerException(
+        message: message,
+        statusCode: e.response?.statusCode,
+      );
     }
   }
 
@@ -60,7 +68,10 @@ class AuthRepository {
   Future<UserModel> fetchMe() async {
     try {
       final response = await _dio.get(ApiConstants.me);
-      final userData = response.data['user'] ?? response.data['data']?['user'] ?? response.data['data'];
+      final userData =
+          response.data['user'] ??
+          response.data['data']?['user'] ??
+          response.data['data'];
       return UserModel.fromJson(userData);
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
@@ -68,6 +79,20 @@ class AuthRepository {
         throw UnauthorizedException();
       }
       throw ServerException(message: 'Failed to fetch user profile');
+    }
+  }
+
+  Future<void> forgotPassword(String login) async {
+    try {
+      await _dio.post(ApiConstants.forgotPassword, data: {'login': login});
+    } on DioException catch (e) {
+      final message =
+          e.response?.data?['message'] ??
+          'Failed to send reset link. Please try again later.';
+      throw ServerException(
+        message: message,
+        statusCode: e.response?.statusCode,
+      );
     }
   }
 }

@@ -36,25 +36,43 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.surfaceWhite,
+    return Scaffold(
+      backgroundColor: AppColors.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.diversity_3, size: 80, color: AppColors.primary),
-            SizedBox(height: 24),
-            Text(
-              'Student Movement\nNDM',
+            Container(
+              padding: const EdgeInsets.all(24),
+              decoration: BoxDecoration(
+                color: AppColors.primary.withOpacity(0.05),
+                shape: BoxShape.circle,
+              ),
+              child: const Icon(Icons.diversity_3, size: 80, color: AppColors.primary),
+            ),
+            const SizedBox(height: 32),
+            const Text(
+              'NDM Member Terminal',
               textAlign: TextAlign.center,
               style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: AppColors.primaryDark,
+                fontSize: 28,
+                fontWeight: FontWeight.w900,
+                color: AppColors.primary,
+                letterSpacing: -0.5,
               ),
             ),
-            SizedBox(height: 48),
-            CircularProgressIndicator(color: AppColors.primary),
+            const SizedBox(height: 8),
+            const Text(
+              'Student Movement for Reform',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: AppColors.textLow,
+              ),
+            ),
+            const SizedBox(height: 100),
+            const CircularProgressIndicator(color: AppColors.primary, strokeWidth: 3),
           ],
         ),
       ),

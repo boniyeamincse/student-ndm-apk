@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
@@ -36,9 +37,9 @@ class MemberCardScreen extends ConsumerWidget {
                     Text(
                       'Student Movement - NDM',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                          ),
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     const SizedBox(height: 18),
                     Row(
@@ -72,22 +73,54 @@ class MemberCardScreen extends ConsumerWidget {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                     const SizedBox(height: 16),
-                    StatusBadge(text: profile.status.toUpperCase(), color: Colors.white),
+                    StatusBadge(
+                      text: profile.status.toUpperCase(),
+                      color: Colors.white,
+                    ),
                   ],
                 ),
               ),
               const SizedBox(height: 14),
-              const ContentCard(
+              ContentCard(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('QR verification placeholder'),
-                    SizedBox(height: 8),
-                    Text('Card verification QR will be available in next version.'),
+                    Text(
+                      'Member Verification',
+                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Center(
+                      child: QrImageView(
+                        data: profile.memberNo,
+                        version: QrVersions.auto,
+                        size: 180,
+                        backgroundColor: Colors.white,
+                        eyeStyle: const QrEyeStyle(
+                          eyeShape: QrEyeShape.square,
+                          color: AppColors.primary,
+                        ),
+                        dataModuleStyle: const QrDataModuleStyle(
+                          dataModuleShape: QrDataModuleShape.square,
+                          color: AppColors.textHigh,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Center(
+                      child: Text(
+                        'Scan to verify member',
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                          color: AppColors.textLow,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),

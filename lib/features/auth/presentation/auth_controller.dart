@@ -49,4 +49,12 @@ class AuthController extends AsyncNotifier<UserModel?> {
     await _repository.logout();
     state = const AsyncValue.data(null);
   }
+
+  Future<void> forgotPassword(String login) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _repository.forgotPassword(login);
+      return state.value; // Keep existing state (null or previous user)
+    });
+  }
 }

@@ -5,6 +5,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../../core/constants/app_spacing.dart';
 import 'auth_controller.dart';
 import '../../../core/errors/exceptions.dart';
+import 'widgets/forgot_password_dialog.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -136,7 +137,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   ),
                   const SizedBox(height: AppSpacing.m),
                   TextButton(
-                    onPressed: isLoading ? null : () {},
+                    onPressed: isLoading
+                        ? null
+                        : () {
+                            showDialog(
+                              context: context,
+                              builder: (context) => const ForgotPasswordDialog(),
+                            );
+                          },
                     child: const Text(
                       'Forgot Password?',
                       style: TextStyle(color: AppColors.primary),
